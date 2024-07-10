@@ -1,5 +1,7 @@
 import { Movie } from "../types/movie";
 
+const base_url = 'https://image.tmdb.org/t/p/w500';
+
 const dummyMovies: Movie[] = [
     {
         "adult": false,
@@ -20,7 +22,8 @@ const dummyMovies: Movie[] = [
         "title": "Inside Out 2",
         "video": false,
         "vote_average": 7.706,
-        "vote_count": 1291
+        "vote_count": 1291,
+        "image_path": `${base_url}/vpnVM9B6NMmQpWeZvzLvDESb2QY.jpg`
     },
     {
         "adult": false,
@@ -40,7 +43,8 @@ const dummyMovies: Movie[] = [
         "title": "Furiosa: A Mad Max Saga",
         "video": false,
         "vote_average": 7.7,
-        "vote_count": 1688
+        "vote_count": 1688,
+        "image_path": `${base_url}/iADOJ8Zymht2JPMoy3R7xceZprc.jpg`
     },
     {
         "adult": false,
@@ -60,7 +64,8 @@ const dummyMovies: Movie[] = [
         "title": "Kingdom of the Planet of the Apes",
         "video": false,
         "vote_average": 6.9,
-        "vote_count": 1291
+        "vote_count": 1291,
+        "image_path": `${base_url}/gKkl37BQuKTanygYQG1pyYgLVgf.jpg`
     },
     {
         "adult": false,
@@ -81,7 +86,8 @@ const dummyMovies: Movie[] = [
         "title": "Bad Boys: Ride or Die",
         "video": false,
         "vote_average": 7.025,
-        "vote_count": 477
+        "vote_count": 477,
+        "image_path": `${base_url}/nP6RliHjxsz4irTKsxe8FRhKZYl.jpg`
     },
     {
         "adult": false,
@@ -101,7 +107,8 @@ const dummyMovies: Movie[] = [
         "title": "Trigger Warning",
         "video": false,
         "vote_average": 5.779,
-        "vote_count": 240
+        "vote_count": 240,
+        "image_path": `${base_url}/6XJM3C47iGOK9nFU6yLFCSf4U5c.jpg`
     },
     {
         "adult": false,
@@ -123,7 +130,8 @@ const dummyMovies: Movie[] = [
         "title": "Inside Out",
         "video": false,
         "vote_average": 7.915,
-        "vote_count": 21034
+        "vote_count": 21034,
+        "image_path": `${base_url}/2H1TmgdfNtsKlU9jKdeNyYL5y8T.jpg`
     },
 ];
 

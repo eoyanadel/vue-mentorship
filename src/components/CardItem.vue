@@ -7,6 +7,12 @@ const props = defineProps<{
 </script>
 <template>
     <div class="card-item">
-        {{ props.movieItem.title }}
+        <div>
+            <!-- {{ props.movieItem.image_path }} -->
+            <img :src="props.movieItem.image_path" :alt="props.movieItem.image_path" width="300px" height="500px">
+        </div>
+        <div>
+            {{ props.movieItem.title }}
+        </div>        
     </div>
 </template>
