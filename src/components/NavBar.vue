@@ -13,3 +13,14 @@
         </div>
     </div>
 </template>
+<style scoped>
+.nav-container {
+  background-color: #4d4d52;
+  display: flex;
+  padding: 10px 0 7px 10px;
+}
+
+.nav-logo {
+  padding-right: 10px;
+}
+</style>
