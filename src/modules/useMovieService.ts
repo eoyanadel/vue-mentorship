@@ -1,4 +1,4 @@
-import { API_KEY, BASE_API_URL, MOVIE_API_INJECTION_KEY } from "../globalContants";
+import { API_KEY, BASE_API_URL, MOVIE_API_INJECTION_KEY } from "../globalConstants";
 import MovieService from "../services/movieService";
 import { App, inject } from "vue";
 
