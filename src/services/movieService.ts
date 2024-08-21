@@ -1,28 +1,38 @@
+import { BASE_API_URL, API_KEY } from "../globalConstants";
 import axios from "axios";
-//import { ApiResponse } from '../../types/apiResponse';
-import { ApiError } from '../../types/apiError';
+import { ApiError } from "types/apiError";
 import { Movie } from "types/movie";
 
-export default class MovieService {
-    protected baseUrl: string;
-    protected apiKey: string;
+const baseUrl = BASE_API_URL;
+const apiKey = API_KEY;
 
-    constructor(baseUrl: string, apiKey: string) {
-        this.baseUrl = baseUrl;
-        this.apiKey = apiKey;
-    };
+const getMoviesByPopularity = async (): Promise<Movie[]> => {        
+    const url = `${ baseUrl }discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${ apiKey }`;
+    
+    const response = await axios.get(url)
+        .then((response: any) => response.data)
+        .catch((error: ApiError) => {
+            throw error;
+        });        
 
-    public getMoviesByPopularity = async (): Promise<Movie[]> => {        
-        const url = `${ this.baseUrl }discover/movie?include_adult=false&include_video=false&language=en-US&page=1&sort_by=popularity.desc&api_key=${ this.apiKey }`;
-        
-        const response = await axios.get(url)
-            .then((response: any) => response.data)
-            .catch((error: ApiError) => {
-                throw error;
-            });        
+    console.log('response: ', response);
 
-        console.log('response: ', response);
+    return response.results;
+};
 
-        return response.results;
-    };
+const searchMovieByQuery = async (query: string): Promise<Movie[]> => {
+    const url = `${ baseUrl }search/movie?query=${ query }&api_key=${ apiKey }`;
+
+    const response = await axios.get(url)
+        .then((response: any) => response.data)
+        .catch((error: ApiError) => {
+            throw error;
+        });
+
+    return response.results;
+};
+
+export default {
+    getMoviesByPopularity,
+    searchMovieByQuery,
 }

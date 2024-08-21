@@ -1,20 +1,42 @@
 <script setup lang="ts">
 import { Movie } from '../../types/movie';
 import { BASE_IMAGE_URL } from '../globalConstants';
+import { useMovieStore } from '../stores/movieStore';
 
 const props = defineProps<{
     movieItem: Movie
 }>();
 
+const movieStore = useMovieStore();
 const movie = props.movieItem;
-// console.log(movie);
+
+const AddMovie = (movie: Movie) => {
+    console.log('Adding movie to Fav...');
+    movieStore.addMovieToFav(movie);
+};
 </script>
 <template>
     <div class="card-item">
         <div>
             <!-- {{ props.movieItem.image_path }} -->
-            <img :src="BASE_IMAGE_URL + movie.poster_path" :alt="movie.image_path" class="poster">
+            <img
+                v-if="movie.poster_path" 
+                :src="BASE_IMAGE_URL + movie.poster_path" :alt="movie.image_path" class="poster">
+            <img
+                v-else
+                src="../assets/No_Image_Available.svg" alt="noImage" class="poster">
         </div>
+        <div>
+            <button 
+                class="card-button"
+                @click="AddMovie(movie)"
+            >
+                Add
+            </button>
+        </div>
+        <!-- <div>
+            <button class="card-button">Remove</button>
+        </div> -->
         <div class="title">
             {{ movie.title }}
         </div>
@@ -25,10 +47,7 @@ const movie = props.movieItem;
             <p>
                 {{ movie.overview }}
             </p>
-        </div>
-        <div>
-            <button>Add</button>
-        </div>
+        </div>        
     </div>    
 </template>
 <style scoped>
@@ -42,11 +61,14 @@ const movie = props.movieItem;
 }
 
 .card-item:hover {
-  background-color: #555454;
-  cursor: pointer;
+    background-color: #555454;
+    cursor: pointer;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .poster {    
+    width: 300px;
     height: 450px;
     border-radius: 4px;
 }
@@ -67,5 +89,8 @@ const movie = props.movieItem;
     width: 300px;
     font-size: smaller;
     flex-grow: 1;
+}
+.card-button {
+    width: 100%;
 }
 </style>

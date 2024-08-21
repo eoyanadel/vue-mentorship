@@ -1,35 +1,53 @@
 <script setup lang="ts">
-import { onBeforeMount, ref } from 'vue';
+import { computed, ref } from 'vue';
 import CardItem from '../components/CardItem.vue';
 //import dummyMovies from '../../dummy/dummy-movies';
-import useMovieService from '../modules/useMovieService';
-import { Movie } from '../../types/movie';
+//import { Movie } from '../../types/movie';
+//import movieService from '../services/movieService';
+import { useMovieStore } from '../stores/movieStore';
 
-const { movieService } = useMovieService();
+const movieStore = useMovieStore();
 
-const movies = ref<Movie[]>([]);
+const movies = computed(() => movieStore.$state.movies);
+const query = ref<string>('');
+const hasSearched = ref<boolean>(false);
 
-onBeforeMount(async () => {
-  console.log('loading initial movies...');
-  movies.value = await movieService?.getMoviesByPopularity() as Movie[];   
+if(movies.value.length == 0 || hasSearched) {
+  await movieStore.loadMoviesByPopularity();
+};
+
+// onBeforeMount(async () => {
+//   // console.log('loading initial movies...');
+//   movies.value = await movieService.getMoviesByPopularity();
+//   // console.log(movies.value);
+//   }); 
+
+const searchMovies = async () => {  
+  if(query.value == '') {
+    alert('You must enter a criteria to search.');
+    return;
+  }
+
+  console.log('searching with: ', query.value);
+  //movies.value = [];
+  //movies.value = await movieService.searchMovieByQuery(query.value) as Movie[];
+  await movieStore.searchMovies(query.value);
   console.log(movies.value);
-  }); 
-
-const searchMovies = () => {
-  console.log('searching...');
+  hasSearched.value = true;
+  query.value = '';
 };
 
 </script>
-<template>
-    <!-- <h1>Home Page</h1> -->
+<template>    
     <div class="search-container">
-        <input type="text" id="search" name="search" placeholder="Search">
+        <input type="text" id="search" name="search" placeholder="Search" v-model="query">
         <button
           @click="searchMovies"
         >
           Search
         </button>            
-    </div>    
+    </div>
+    <h2 v-if="!movies.length">There are not results for that searching</h2>    
     <div class="card-container">
         <CardItem 
             v-for="(movie, index) in movies" :key="index"
